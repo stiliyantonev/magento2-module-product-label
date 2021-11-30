@@ -159,19 +159,20 @@ class ProductLabel extends Template implements IdentityInterface
 
         foreach ($attributeIds as $attributeId) {
             $attribute = $productEntity->getAttribute($attributeId);
-            if ($attribute) {
-                $optionIds = $this->getProduct()->getCustomAttribute($attribute->getAttributeCode());
+			if ($attribute) {
+					$optionIds = $this->getProduct()->getCustomAttribute($attribute->getAttributeCode());
+					$attributesList[$attribute->getId()] = [
+						'id'      => $attribute->getId(),
+						'label'   => $attribute->getFrontend()->getLabel(),
+						'options' => $this->getProduct()->getData($attribute->getAttributeCode()),
+				//'options' => ($optionIds) ? $optionIds->getValue() : '',
+					];
+				}
+			}
 
-                $attributesList[$attribute->getId()] = [
-                    'id'      => $attribute->getId(),
-                    'label'   => $attribute->getFrontend()->getLabel(),
-                    'options' => ($optionIds) ? $optionIds->getValue() : '',
-                ];
-            }
-        }
-
-        return $attributesList;
+			return $attributesList;
     }
+   
 
     /**
      * Check if product has product labels
