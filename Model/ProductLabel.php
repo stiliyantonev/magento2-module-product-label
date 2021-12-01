@@ -345,6 +345,74 @@ class ProductLabel extends AbstractModel implements IdentityInterface, ProductLa
     {
         return $this->setData(self::PRODUCTLABEL_ALT, (string) $value);
     }
+    
+    /**
+     * Get field: css_image_class
+     *
+     * @return string
+     */
+    public function getCssImageClass()
+    {
+        return (string) $this->getData(self::CSS_IMAGE_CLASS);
+    }
+    
+    /**
+     * Get field: css_div_class
+     *
+     * @return string
+     */
+    public function getCssDivClass()
+    {
+        return (string) $this->getData(self::CSS_DIV_CLASS);
+    }
+    
+    /**
+     * Set field: css_image_class.
+     *
+     * @param string $value Field value
+     *
+     * @return $this
+     */
+    public function setCssImageClass($value)
+    {
+        return $this->setData(self::CSS_IMAGE_CLASS, (string) $value);
+    }
+    
+    /**
+     * Set field: css_div_class.
+     *
+     * @param string $value Field value
+     *
+     * @return $this
+     */
+    public function setCssDivClass($value)
+    {
+        return $this->setData(self::CSS_DIV_CLASS, (string) $value);
+    }
+    
+    
+    /**
+     * Get field: categories
+     *
+     * @return string
+     */
+    public function getCategories()
+    {
+        return (string) $this->getData(self::CATEGORIES);
+    }
+    
+    /**
+     * Set field: categories.
+     *
+     * @param string $value Field value
+     *
+     * @return $this
+     */
+    public function setCategories($value)
+    {
+        return $this->setData(self::CATEGORIES, (string) $value);
+    }
+    
 
     /**
      * @param array $values Form values
@@ -361,6 +429,10 @@ class ProductLabel extends AbstractModel implements IdentityInterface, ProductLa
         $this->setData(self::PRODUCTLABEL_DISPLAY_ON, implode(',', $values['display_on']));
         $this->setData(self::PRODUCTLABEL_ALT, (string) $values['alt']);
         $this->setData(self::STORE_ID, implode(',', $values['stores'] ?? $values['store_id']));
+        
+        $this->setData(self::CSS_IMAGE_CLASS, $values['css_image_class']);
+        $this->setData(self::CSS_DIV_CLASS, $values['css_div_class']);
+        $this->setData(self::CATEGORIES, implode(',',$values['categories']));
     }
 
     /**

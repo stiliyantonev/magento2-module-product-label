@@ -155,22 +155,22 @@ class ProductLabel extends Template implements IdentityInterface
     {
         $attributesList = [];
         $attributeIds   = array_column($this->getProductLabelsList(), 'attribute_id');
+        $categories   = array_column($this->getProductLabelsList(), 'categories');
         $productEntity  = $this->getProduct()->getResourceCollection()->getEntity();
 
         foreach ($attributeIds as $attributeId) {
             $attribute = $productEntity->getAttribute($attributeId);
 			if ($attribute) {
-					$optionIds = $this->getProduct()->getCustomAttribute($attribute->getAttributeCode());
-					$attributesList[$attribute->getId()] = [
-						'id'      => $attribute->getId(),
-						'label'   => $attribute->getFrontend()->getLabel(),
-						'options' => $this->getProduct()->getData($attribute->getAttributeCode()),
-				//'options' => ($optionIds) ? $optionIds->getValue() : '',
-					];
-				}
+				$optionIds = $this->getProduct()->getCustomAttribute($attribute->getAttributeCode());
+				$attributesList[$attribute->getId()] = [
+					'id'      => $attribute->getId(),
+					'label'   => $attribute->getFrontend()->getLabel(),
+					'options' => $this->getProduct()->getData($attribute->getAttributeCode()),
+				];
 			}
+		}
 
-			return $attributesList;
+		return $attributesList;
     }
    
 
@@ -195,7 +195,9 @@ class ProductLabel extends Template implements IdentityInterface
                     if (!is_array($options)) {
                         $options = explode(',', $options);
                     }
-                    if (in_array($optionIdLabel, $options) && in_array($this->getCurrentView(), $productLabel['display_on'])) {
+                    if (
+						in_array($optionIdLabel, $options) && 
+						in_array($this->getCurrentView(), $productLabel['display_on'])) {
                         $productLabel['class'] = $this->getCssClass($productLabel);
                         $productLabel['image'] = $this->getImageUrl($productLabel['image']);
                         $class = $this->getCssClass($productLabel);
@@ -204,7 +206,7 @@ class ProductLabel extends Template implements IdentityInterface
                 }
             }
         }
-
+		 
         return $productLabels;
     }
 
@@ -250,11 +252,11 @@ class ProductLabel extends Template implements IdentityInterface
         $class = '';
 
         if ($this->getCurrentView() === ProductLabelInterface::PRODUCTLABEL_DISPLAY_PRODUCT) {
-            $class = $productLabel['position_product_view'] . ' product';
+            $class = $productLabel['position_product_view'] . ' product '.$productLabel['css_div_class'];
         }
 
         if ($this->getCurrentView() === ProductLabelInterface::PRODUCTLABEL_DISPLAY_LISTING) {
-            $class = $productLabel['position_category_list'] . ' category';
+            $class = $productLabel['position_category_list'] . ' category '.$productLabel['css_div_class'];
         }
 
         return $class;

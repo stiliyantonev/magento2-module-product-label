@@ -10,7 +10,10 @@
             "position_category_list": true,
             "position_product_view": true,
             "alt": true,
-            "display_on": true
+            "display_on": true,
+            "css_image_class": true,
+            "css_div_class": true,
+            "categories": true
         },
         "index": {
             "SMILE_PRODUCTLABEL_PRODUCT_LABEL_ID": true,

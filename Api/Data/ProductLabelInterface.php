@@ -98,6 +98,21 @@ interface ProductLabelInterface
     const STORE_ID = 'store_id';
 
     /**
+     * CSS Class For Image Tag
+     */
+    const CSS_IMAGE_CLASS = 'css_image_class';
+    
+	/**
+     * CSS Class for div tag containing image.
+     */
+    const CSS_DIV_CLASS = 'css_div_class';
+    
+    /**
+     * cATEGORIES TO APPLY FOR.
+     */
+    const CATEGORIES = 'categories';
+    
+    /**
      * Retrieve product label store ids
      *
      * @return int[]

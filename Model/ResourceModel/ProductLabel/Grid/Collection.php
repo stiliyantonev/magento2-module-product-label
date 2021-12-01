@@ -109,33 +109,24 @@ class Collection extends \Smile\ProductLabel\Model\ResourceModel\ProductLabel\Co
             ['ea' => $this->getTable('eav_attribute')],
             'ea.attribute_id = main_table.attribute_id',
             ['frontend_label']
-        );
-
-        $this->getSelect()->joinLeft(
-            ['eaov' => $this->getTable('eav_attribute_option_value')],
-            'eaov.option_id = main_table.option_id',
-            ['option_label' => 'value']
-        );
-
+        )->joinLeft(
+            ['cpei' => $this->getTable('catalog_product_entity_int')],
+            'cpei.attribute_id = ea.attribute_id',
+            ['value' => 'cpei.value']
+        )->group('main_table.product_label_id');
         $storeCondition = \Magento\Store\Model\Store::DEFAULT_STORE_ID;
 
         if ($this->getFilter('store')) {
             $storeId = current($this->getStoreIds());
 
-            $this->getSelect()->joinLeft(
-                ['eaov_s' => $this->getTable('eav_attribute_option_value')],
-                sprintf('eaov_s.option_id = main_table.option_id AND eaov_s.store_id = %s', $storeId),
-                ['option_label' => 'value']
-            );
-
             $storeCondition = $this->getConnection()->getIfNullSql(
-                "eaov_s.store_id",
+                "cpei.store_id",
                 \Magento\Store\Model\Store::DEFAULT_STORE_ID
             );
         }
 
-        $this->getSelect()->where('eaov.store_id = ?', $storeCondition);
-
+        $this->getSelect()->where('cpei.store_id = ? OR cpei.store_id IS NULL', $storeCondition);
+		
         return $this;
     }
 }

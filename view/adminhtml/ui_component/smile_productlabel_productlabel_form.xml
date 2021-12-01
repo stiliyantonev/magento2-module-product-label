@@ -15,7 +15,6 @@
 -->
 <form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
-
     <argument name="data" xsi:type="array">
         <item name="js_config" xsi:type="array">
             <item name="provider" xsi:type="string">smile_productlabel_productlabel_form.smile_productlabel_productlabel_form_data_source</item>
@@ -212,6 +211,34 @@
                 <componentType>field</componentType>
             </settings>
         </field>
+        
+        <field name="categories">
+			<argument name="data" xsi:type="array">
+				<item name="options" xsi:type="object">Magento\Catalog\Ui\Component\Product\Form\Categories\Options</item>
+				<item name="config" xsi:type="array">
+					<item name="label" xsi:type="string" translate="true">Categories to apply to</item>
+					<item name="componentType" xsi:type="string">field</item>
+					<item name="formElement" xsi:type="string">hidden</item>
+					<item name="component" xsi:type="string">Magento_Catalog/js/components/new-category</item>
+					<item name="elementTmpl" xsi:type="string">ui/grid/filters/elements/ui-select</item>
+					<item name="dataScope" xsi:type="string">categories</item>
+					<item name="filterOptions" xsi:type="boolean">true</item>
+					<item name="showCheckbox" xsi:type="boolean">false</item>
+					<item name="disableLabel" xsi:type="boolean">true</item>
+					<item name="multiple" xsi:type="boolean">true</item>
+					<item name="levelsVisibility" xsi:type="number">2</item>
+					<item name="sortOrder" xsi:type="number">20</item>
+					<item name="required" xsi:type="boolean">false</item>
+					<item name="validation" xsi:type="array">
+						<item name="required-entry" xsi:type="boolean">false</item>
+					</item>
+					<item name="listens" xsi:type="array">
+						<item name="${ $.namespace }.${ $.namespace }:responseData" xsi:type="string">setParsed</item>
+					</item>
+				</item>
+			</argument>
+		</field>
+
 
         <field name="storeviews" formElement="multiselect" sortOrder="45">
             <argument name="data" xsi:type="array">
@@ -349,7 +376,41 @@
                 <visible>true</visible>
                 <dataScope>alt</dataScope>
             </settings>
-        </field>
+       </field>
+       
+        <field name="css_image_class" formElement="hidden" sortOrder="100">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">css_image_class</item>
+				</item>
+			</argument>
+			<settings>
+				<validation>
+					<rule name="required-entry" xsi:type="boolean">false</rule>
+				</validation>
+				<dataType>text</dataType>
+                <label translate="true">CSS class to be applied to the image tag.</label>
+                <visible>true</visible>
+                <dataScope>css_image_class</dataScope>
+			</settings>
+		</field>
+		<field name="css_div_class" formElement="input" sortOrder="110">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="source" xsi:type="string">d</item>
+				</item>
+			</argument>
+			<settings>
+				<validation>
+					<rule name="required-entry" xsi:type="boolean">false</rule>
+				</validation>
+				<dataType>text</dataType>
+                <label translate="true">CSS class to be applied to the div tag containing the image.</label>
+                <visible>true</visible>
+                <dataScope>css_div_class</dataScope>
+			</settings>
+		</field>
+
     </fieldset>
 
 </form>
