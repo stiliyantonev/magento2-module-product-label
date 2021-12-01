@@ -432,7 +432,7 @@ class ProductLabel extends AbstractModel implements IdentityInterface, ProductLa
         
         $this->setData(self::CSS_IMAGE_CLASS, $values['css_image_class']);
         $this->setData(self::CSS_DIV_CLASS, $values['css_div_class']);
-        $this->setData(self::CATEGORIES, implode(',',$values['categories']));
+        //$this->setData(self::CATEGORIES, implode(',',$values['categories']));
     }
 
     /**
